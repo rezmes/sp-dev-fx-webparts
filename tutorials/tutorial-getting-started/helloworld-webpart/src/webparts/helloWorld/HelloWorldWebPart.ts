@@ -33,6 +33,8 @@ export interface ISPList {
 export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorldWebPartProps> {
 private _isDarkTheme: boolean = false;
 private _environmentMessage: string = '';
+
+//List Item table 
 private _renderList(items: ISPList[]): void {
   let html: string = '';
   items.forEach((item: ISPList) => {
@@ -60,13 +62,13 @@ private _renderListAsync(): void {
 public render(): void {
 
   this.domElement.innerHTML = `
-  <section class="${styles.helloWorld}>
+  <section class="${styles.helloWorld}">
     <div class="${styles.welcome}">
       <img alt="" src="${this._isDarkTheme ? require('./assets/welcome-dark.png') : require('./assets/welcome-light.png')}" class="${styles.welcomeImage}" />
       <h2>Well done, ${escape(this.context.pageContext.user.displayName)}!</h2>
       <div>${this._environmentMessage}</div>
     </div>
-    <div>
+    <div class="${styles.alignleft}">
       <h3>Welcome to SharePoint Framework!</h3>
       <div>Web part description: <strong>${escape(this.properties.description)}</strong></div>
       <div>Web part test: <strong>${escape(this.properties.test)}</strong></div>
