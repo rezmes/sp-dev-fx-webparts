@@ -11,3 +11,20 @@
     "helloWorldStrings": "webparts/helloWorld/loc/{locale}.js"
   }
 }
+
+// {
+//   "version": "1.0",
+//   "bundles": {
+//     "helloworld-webpart": {
+//       "components": [
+//         {
+//           "entrypoint": "./lib/webparts/helloWorld/HelloWorldWebPart.js",
+//           "manifest": "./src/webparts/helloWorld/HelloWorldWebPart.manifest.json"
+//         }
+//       ]
+//     }
+//   },
+//   "localizedResources": {
+//     "helloWorldStrings": "lib/webparts/helloWorld/loc/{locale}.js"
+//   }
+// }

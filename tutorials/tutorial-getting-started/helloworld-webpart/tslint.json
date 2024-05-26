@@ -1,3 +1,38 @@
+// {
+
+//     "rulesDirectory": "./config"
+// }
 {
-    "rulesDirectory": "./config"
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+  "id": "f170ff98-632b-4fb4-adee-4ab14f430aac",
+  "alias": "HelloWorldWebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "rulesDirectory": "./config",
+  "supportedHosts": ["SharePointWebPart"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": { "default": "Under Development" },
+      "title": {
+        "default": "Hello World",
+        "en-us": "Hello World",
+        "fa-ir": "سلام دنیا"
+      },
+      "description": {
+        "default": "Description of the web part",
+        "en-us": "Description of the web part",
+        "fa-ir": "توضیحات وب پارت"
+      },
+      "officeFabricIconFontName": "Page",
+      "properties": {
+        "description": "HelloWorld",
+        "test": "Multi-line text field",
+        "test1": true,
+        "test2": "2",
+        "test3": true
+      }
+    }
+  ]
 }
