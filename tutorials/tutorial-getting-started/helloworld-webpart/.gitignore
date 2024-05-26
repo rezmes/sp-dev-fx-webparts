@@ -10,7 +10,7 @@ node_modules
 dist
 lib
 solution
-temp
+# temp
 *.sppkg
 
 # Coverage directory used by tools like istanbul
