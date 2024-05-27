@@ -1,0 +1,11 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": true,
+    "environment": "onprem19",
+    "version": "1.10.0",
+    "libraryName": "my-react-custompropertypanecontrol",
+    "libraryId": "6c596d39-9401-4de7-97d2-5ef0eafe84de",
+    "packageManager": "npm",
+    "componentType": "webpart"
+  }
+}
