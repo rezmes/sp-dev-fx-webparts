@@ -5,5 +5,5 @@ export interface IListItemsProps {
   hasTeamsContext: boolean;
   userDisplayName: string;
   listName: string;
-  
+  itemName: string;
 }

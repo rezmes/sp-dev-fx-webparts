@@ -118,11 +118,14 @@ import { update, get } from '@microsoft/sp-lodash-subset';
 export interface IListItemsWebPartProps {
   description: string;
   listName: string;
+  item: string;
 }
 
 export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWebPartProps> {
+  private itemsDropDown: PropertyPaneAsyncDropdown;
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
+
   // private _hasTeamsContext: boolean = false; // Add this line
 
   private loadLists(): Promise<IDropdownOption[]> {
@@ -140,12 +143,27 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     });
   }
 
+
+
+
+
+
   private onListChange(propertyPath: string, newValue: any): void {
     const oldValue: any = get(this.properties, propertyPath);
     // store new value in web part properties
     update(this.properties, propertyPath, (): any => { return newValue; });
+    // reset selected item
+    this.properties.item = undefined;
+    // store new value in web part properties
+    update(this.properties, 'item', (): any => { return this.properties.item; });
     // refresh web part
     this.render();
+    // reset selected values in item dropdown
+    this.itemsDropDown.properties.selectedKey = this.properties.item;
+    // allow to load items
+    this.itemsDropDown.properties.disabled = false;
+    // load items and re-render items dropdown
+    this.itemsDropDown.render();
   }
 
   public render(): void {
@@ -156,6 +174,7 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
       ListItems,
       {
         listName: this.properties.listName,
+        itemName: this.properties.item,
         description: this.properties.description,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
@@ -188,6 +207,50 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     return Promise.resolve(strings.SharePointEnvironment);
   }
 
+  private loadItems(): Promise<IDropdownOption[]> {
+    if (!this.properties.listName) {
+      // resolve to empty options since no list has been selected
+      return Promise.resolve([]);
+    }
+  
+    const wp: ListItemsWebPart = this;
+  
+    return new Promise<IDropdownOption[]>((resolve: (options: IDropdownOption[]) => void, reject: (error: any) => void) => {
+      setTimeout(() => {
+        const items = {
+          sharedDocuments: [
+            {
+              key: 'spfx_presentation.pptx',
+              text: 'SPFx for the masses'
+            },
+            {
+              key: 'hello-world.spapp',
+              text: 'hello-world.spapp'
+            }
+          ],
+          myDocuments: [
+            {
+              key: 'isaiah_cv.docx',
+              text: 'Isaiah CV'
+            },
+            {
+              key: 'isaiah_expenses.xlsx',
+              text: 'Isaiah Expenses'
+            }
+          ]
+        };
+        resolve(items[wp.properties.listName]);
+      }, 2000);
+    });
+  }
+
+  private onListItemChange(propertyPath: string, newValue: any): void {
+    const oldValue: any = get(this.properties, propertyPath);
+    // store new value in web part properties
+    update(this.properties, propertyPath, (): any => { return newValue; });
+    // refresh web part
+    this.render();
+  }
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);
   }
@@ -197,6 +260,17 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
   // }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+      // reference to item dropdown needed later after selecting a list
+      this.itemsDropDown = new PropertyPaneAsyncDropdown('item', {
+        label: strings.ItemFieldLabel,
+        loadOptions: this.loadItems.bind(this),
+        onPropertyChange: this.onListItemChange.bind(this),
+        selectedKey: this.properties.item,
+        // should be disabled if no list has been selected
+        disabled: !this.properties.listName
+      });
+  
+  
     return {
       pages: [
         {
@@ -212,7 +286,8 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                   loadOptions: this.loadLists.bind(this),
                   onPropertyChange: this.onListChange.bind(this),
                   selectedKey: this.properties.listName
-                })
+                }),
+                this.itemsDropDown
               ]
             }
           ]

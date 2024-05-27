@@ -27,9 +27,11 @@
 // }
 import * as React from 'react';
 import styles from './ListItems.module.scss';
+import { escape } from 'lodash';
 
 export interface IListItemsProps {
   listName: string;
+  itemName: string;
   description: string;
   isDarkTheme: boolean;
   environmentMessage: string;
@@ -39,30 +41,40 @@ export interface IListItemsProps {
 
 export default class ListItems extends React.Component<IListItemsProps, {}> {
   public render(): React.ReactElement<IListItemsProps> {
-    const { listName, description, isDarkTheme, environmentMessage, hasTeamsContext, userDisplayName } = this.props;
+    const { listName, itemName, description, isDarkTheme, environmentMessage, hasTeamsContext, userDisplayName } = this.props;
 
     return (
-      <div className={`${styles.listItems} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
+      // <div className={`${styles.listItems} ${hasTeamsContext ? styles.teams : ''}`}>
+      //   <div className={styles.welcome}>
           
-          <div className={styles.row}>
-            <div className={styles.column}>
-              <span className={styles.title}>Welcome, {userDisplayName}!</span>
+      //     <div className={styles.row}>
+      //       <div className={styles.column}>
+      //         <span className={styles.title}>Welcome, {userDisplayName}!</span>
               
-              <p className={styles.subTitle}>Customize SharePoint experiences using Web Parts.</p>
-              <p className={styles.description}>{environmentMessage}</p>
-              <a className={styles.button} href={`/_layouts/15/viewlsts.aspx?list=${listName}`}>
-                <span className={styles.label}>Go to List</span>
-              </a>
-              {hasTeamsContext && (
-                <div className={styles.welcome}>
-                  <p>You're using Microsoft Teams!</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+      //         <p className={styles.subTitle}>Customize SharePoint experiences using Web Parts.</p>
+      //         <p className={styles.description}>{environmentMessage}</p>
+      //         <a className={styles.button} href={`/_layouts/15/viewlsts.aspx?list=${listName}`}>
+      //           <span className={styles.label}>Go to List</span>
+      //         </a>
+      //         {hasTeamsContext && (
+      //           <div className={styles.welcome}>
+      //             <p>You're using Microsoft Teams!</p>
+      //           </div>
+                
+      //         )}
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
+      <section className={`${styles.listItems} ${hasTeamsContext ? styles.teams : ''}`}>
+      <div className={styles.welcome}>
+        <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
+        <h2>Well done, {escape(userDisplayName)}!</h2>
+        <div>{environmentMessage}</div>
+        <div>List name: <strong>{escape(listName)}</strong></div>
+        <div>Item name: <strong>{escape(itemName)}</strong></div>
       </div>
+    </section>
     );
   }
 }
