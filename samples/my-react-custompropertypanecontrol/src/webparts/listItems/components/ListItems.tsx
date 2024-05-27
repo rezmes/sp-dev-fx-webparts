@@ -43,10 +43,12 @@ export default class ListItems extends React.Component<IListItemsProps, {}> {
 
     return (
       <div className={`${styles.listItems} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.container}>
+        <div className={styles.welcome}>
+          
           <div className={styles.row}>
             <div className={styles.column}>
               <span className={styles.title}>Welcome, {userDisplayName}!</span>
+              
               <p className={styles.subTitle}>Customize SharePoint experiences using Web Parts.</p>
               <p className={styles.description}>{environmentMessage}</p>
               <a className={styles.button} href={`/_layouts/15/viewlsts.aspx?list=${listName}`}>

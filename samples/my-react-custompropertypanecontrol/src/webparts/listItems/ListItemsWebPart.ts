@@ -108,6 +108,13 @@ import * as strings from 'ListItemsWebPartStrings';
 import ListItems from './components/ListItems';
 import { IListItemsProps } from './components/IListItemsProps';
 
+
+import { PropertyPaneAsyncDropdown } from '../../controls/PropertyPaneAsyncDropdown/PropertyPaneAsyncDropdown';
+
+
+import { IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { update, get } from '@microsoft/sp-lodash-subset';
+
 export interface IListItemsWebPartProps {
   description: string;
   listName: string;
@@ -117,6 +124,29 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
   // private _hasTeamsContext: boolean = false; // Add this line
+
+  private loadLists(): Promise<IDropdownOption[]> {
+    return new Promise<IDropdownOption[]>((resolve: (options: IDropdownOption[]) => void, reject: (error: any) => void) => {
+      setTimeout(() => {
+        resolve([{
+          key: 'sharedDocuments',
+          text: 'Shared Documents'
+        },
+          {
+            key: 'myDocuments',
+            text: 'My Documents'
+          }]);
+      }, 2000);
+    });
+  }
+
+  private onListChange(propertyPath: string, newValue: any): void {
+    const oldValue: any = get(this.properties, propertyPath);
+    // store new value in web part properties
+    update(this.properties, propertyPath, (): any => { return newValue; });
+    // refresh web part
+    this.render();
+  }
 
   public render(): void {
    // Cast context to any to access microsoftTeams property
@@ -162,9 +192,9 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     ReactDom.unmountComponentAtNode(this.domElement);
   }
 
-  protected get dataVersion(): Version {
-    return Version.parse('1.0');
-  }
+  // protected get dataVersion(): Version {
+  //   return Version.parse('1.0');
+  // }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -177,8 +207,11 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('listName', {
-                  label: strings.ListFieldLabel
+                new PropertyPaneAsyncDropdown('listName', {
+                  label: strings.ListFieldLabel,
+                  loadOptions: this.loadLists.bind(this),
+                  onPropertyChange: this.onListChange.bind(this),
+                  selectedKey: this.properties.listName
                 })
               ]
             }
