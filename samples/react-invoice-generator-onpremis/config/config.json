@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "invoice-gen-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/invoiceGen/InvoiceGenWebPart.js",
+          "manifest": "./src/webparts/invoiceGen/InvoiceGenWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "InvoiceGenWebPartStrings": "lib/webparts/invoiceGen/loc/{locale}.js"
+  }
+}

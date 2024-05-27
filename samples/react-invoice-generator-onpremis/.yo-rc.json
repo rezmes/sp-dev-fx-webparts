@@ -1,0 +1,11 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": true,
+    "environment": "onprem19",
+    "version": "1.10.0",
+    "libraryName": "react-invoice-generator-onpremis",
+    "libraryId": "c0cbdfb4-de8b-4ff8-b86b-613712feff0b",
+    "packageManager": "npm",
+    "componentType": "webpart"
+  }
+}

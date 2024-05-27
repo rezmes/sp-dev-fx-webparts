@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "react-invoice-generator-onpremis-client-side-solution",
+    "id": "c0cbdfb4-de8b-4ff8-b86b-613712feff0b",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true
+  },
+  "paths": {
+    "zippedPackage": "solution/react-invoice-generator-onpremis.sppkg"
+  }
+}
