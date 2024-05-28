@@ -2,17 +2,19 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
   "version": "2.0",
   "bundles": {
-    "invoice-gen-web-part": {
+    "invoice-generator-web-part": {
       "components": [
         {
-          "entrypoint": "./lib/webparts/invoiceGen/InvoiceGenWebPart.js",
-          "manifest": "./src/webparts/invoiceGen/InvoiceGenWebPart.manifest.json"
+          "entrypoint": "./lib/webparts/invoiceGenerator/InvoiceGeneratorWebPart.js",
+          "manifest": "./src/webparts/invoiceGenerator/InvoiceGeneratorWebPart.manifest.json"
         }
       ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "InvoiceGenWebPartStrings": "lib/webparts/invoiceGen/loc/{locale}.js"
+    "InvoiceGeneratorWebPartStrings": "lib/webparts/invoiceGenerator/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }
 }
