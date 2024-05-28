@@ -1,13 +1,25 @@
-import { WebPartContext } from "@microsoft/sp-webpart-base";
-import {
-  IReadonlyTheme
-} from '@microsoft/sp-component-base';
+// import { WebPartContext } from "@microsoft/sp-webpart-base";
+// import {
+//   IReadonlyTheme
+// } from '@microsoft/sp-component-base';
+// export interface IInvoiceGeneratorProps {
+//   logoImage: string,
+//   listId: string;
+//   context: WebPartContext;
+//   taxRate: number;
+//   companyName: string;
+//   companyAddress: string;
+//   themeVariant: IReadonlyTheme;
+// }
+import { WebPartContext } from '@microsoft/sp-webpart-base';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
+
 export interface IInvoiceGeneratorProps {
-  logoImage: string,
-  listId: string;
   context: WebPartContext;
+  listId: string;
   taxRate: number;
   companyName: string;
   companyAddress: string;
-  themeVariant: IReadonlyTheme;
+  logoImage: string;
+  themeVariant: IReadonlyTheme | undefined;
 }
