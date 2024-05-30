@@ -12,8 +12,6 @@
 //   themeVariant: IReadonlyTheme;
 // }
 import { WebPartContext } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
-
 export interface IInvoiceGeneratorProps {
   context: WebPartContext;
   listId: string;
@@ -21,5 +19,5 @@ export interface IInvoiceGeneratorProps {
   companyName: string;
   companyAddress: string;
   logoImage: string;
-  themeVariant: IReadonlyTheme | undefined;
+  themeVariant: any;
 }

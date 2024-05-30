@@ -26,5 +26,8 @@
     "use-named-parameter": true,
     "variable-name": false,
     "whitespace": false
+  },
+  "linterOptions": {
+    "exclude": ["node_modules/**", "lib/**", "src/index.ts"]
   }
 }

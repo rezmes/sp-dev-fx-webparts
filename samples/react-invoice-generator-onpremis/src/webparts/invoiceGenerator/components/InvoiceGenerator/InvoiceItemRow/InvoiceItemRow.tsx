@@ -44,7 +44,7 @@
 import * as React from 'react';
 import styles from './InvoiceItemRow.module.scss';
 import { IInvoiceItemRowProps } from './IInvoiceItemRowProps';
-import { Icon } from '@fluentui/react/lib/Icon';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 export class InvoiceItemRow extends React.Component<IInvoiceItemRowProps, {}> {
   constructor(props: IInvoiceItemRowProps) {

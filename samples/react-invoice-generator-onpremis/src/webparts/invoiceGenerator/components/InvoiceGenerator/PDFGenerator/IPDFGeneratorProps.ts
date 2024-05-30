@@ -1,4 +1,4 @@
-import { IInvoiceItem } from '../../models';
+import { IInvoiceItem } from '../../../models';
 
 export interface IPDFGeneratorProps {
   items: IInvoiceItem[];

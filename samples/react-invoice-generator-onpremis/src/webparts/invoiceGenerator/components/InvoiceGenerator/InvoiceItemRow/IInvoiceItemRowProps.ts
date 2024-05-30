@@ -1,5 +1,5 @@
 
-import { IInvoiceItem } from '../../models';
+import { IInvoiceItem } from '../../../models';
 
 export interface IInvoiceItemRowProps {
   item: IInvoiceItem;

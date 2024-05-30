@@ -1,30 +1,31 @@
 import * as React from 'react';
 import styles from './InvoiceSummary.module.scss';
+import { IInvoiceSummaryProps } from './IInvoiceSummaryProps';
 
-interface IInvoiceSummaryProps {
-  subtotal: number;
-  taxRate: number;
-  total:number
+export class InvoiceSummary extends React.Component<IInvoiceSummaryProps, {}> {
+  constructor(props: IInvoiceSummaryProps) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    const { subtotal, taxRate, total } = this.props;
+    const tax = (subtotal * taxRate) / 100;
+
+    return (
+      <div className={styles.invoiceSummary}>
+        <div className={styles.summaryItem}>
+          <span className={styles.label}>Subtotal:</span>
+          <span>{subtotal.toFixed(2)}</span>
+        </div>
+        <div className={styles.summaryItem}>
+          <span className={styles.label}>Tax ({taxRate}%):</span>
+          <span>{tax.toFixed(2)}</span>
+        </div>
+        <div className={styles.summaryItem}>
+          <span className={styles.label}>Total:</span>
+          <span>{total.toFixed(2)}</span>
+        </div>
+      </div>
+    );
+  }
 }
-
-export const InvoiceSummary: React.FC<IInvoiceSummaryProps> = ({ subtotal, taxRate }) => {
-  const tax = subtotal * (taxRate / 100) || 0;
-  const total = subtotal + tax || 0;
-
-  return (
-    <div className={styles.summary}>
-      <div className={styles.row}>
-        <div className={styles.label}>Subtotal:</div>
-        <div className={styles.value}>${subtotal.toFixed(2)}</div>
-      </div>
-      <div className={styles.row}>
-        <div className={styles.label}>Tax ({taxRate}%):</div>
-        <div className={styles.value}>${tax.toFixed(2)}</div>
-      </div>
-      <div className={styles.row}>
-        <div className={styles.label}>Total:</div>
-        <div className={styles.value}>${total.toFixed(2)}</div>
-      </div>
-    </div>
-  );
-};
